@@ -3,7 +3,7 @@ import fastifyAutoload from "@fastify/autoload";
 import fastify from "fastify";
 import { join } from "node:path";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 const app = fastify();
 
 
@@ -12,6 +12,6 @@ app.register(fastifyAutoload, {
 });
 
 
-app.listen({ port: PORT !== 3000 ? parseInt(PORT) : PORT }).then(() => {
+app.listen({ port: PORT }).then(() => {
     console.log(`Server is running on http://localhost:${PORT}/`);
 });
