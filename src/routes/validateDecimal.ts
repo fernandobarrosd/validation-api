@@ -20,12 +20,12 @@ export default async function(app: FastifyInstance) {
 
         if (isDecimalNumber) {
             return reply.send({
-                message: "Decimal number is valid",
+                message: "Decimal pattern is valid",
                 number
             });
         }
         return reply.status(400).send({
-            message: "Decimal number is invalid",
+            message: "Decimal pattern is invalid",
             number,
             statusCode: 400
         });

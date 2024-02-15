@@ -20,12 +20,12 @@ export default async function(app: FastifyInstance) {
 
         if (isCEP) {
             return reply.send({
-                message: "CEP is valid",
+                message: "CEP pattern is valid",
                 cep
             });
         }
         return reply.status(400).send({
-            message: "CEP is invalid",
+            message: "CEP pattern is invalid",
             cep,
             statusCode: 400
         });

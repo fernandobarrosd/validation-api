@@ -20,12 +20,12 @@ export default async function(app: FastifyInstance) {
 
         if (isCNPJ) {
             return reply.send({
-                message: "CNPJ is valid",
+                message: "CNPJ pattern is valid",
                 cnpj
             });
         }
         return reply.status(400).send({
-            message: "CNPJ is invalid",
+            message: "CNPJ pattern is invalid",
             cnpj,
             statusCode: 400
         });

@@ -20,12 +20,12 @@ export default async function(app: FastifyInstance) {
 
         if (isCPF) {
             return reply.send({
-                message: "CPF is valid",
+                message: "CPF pattern is valid",
                 cpf
             });
         }
         return reply.status(400).send({
-            message: "CPF is invalid",
+            message: "CPF pattern is invalid",
             cpf,
             statusCode: 400
         });

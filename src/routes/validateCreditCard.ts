@@ -20,12 +20,12 @@ export default async function(app: FastifyInstance) {
 
         if (isCreditCard) {
             return reply.send({
-                message: "Credit Card number is valid",
+                message: "Credit card pattern is valid",
                 creditCard
             });
         }
         return reply.status(400).send({
-            message: "Credit Card number is invalid",
+            message: "Credit card pattern is invalid",
             creditCard,
             statusCode: 400
         });
