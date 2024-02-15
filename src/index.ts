@@ -13,5 +13,5 @@ app.register(fastifyAutoload, {
 
 
 app.listen({ port: PORT !== 3000 ? parseInt(PORT) : PORT }).then(() => {
-    console.log(`Server is running on http://localhost:${PORT}/`)
-})
+    console.log(`Server is running on http://localhost:${PORT}/`);
+});
