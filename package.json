@@ -1,0 +1,24 @@
+{
+  "name": "validation-api-js",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/fernandobarrosd/validation-api-js.git",
+  "author": "Fernando de Barros <fdebarros0910-2004@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "start:dev": "tsx watch src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@fastify/autoload": "^5.8.0",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
+    "fastify": "^4.26.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
