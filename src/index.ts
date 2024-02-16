@@ -18,12 +18,7 @@ app.register(fastifyStatic, {
 
 app.register(fastifySwagger, swaggerConfig);
 app.register(fastifySwaggerUi, swaggerUIConfig);
-app.register(fastifyCors, {});
-app.addHook("onRequest", (request, reply, done) => {
-    const headers = request.headers;
-    request.headers = { "content-type": "application/json", ...headers };
-    done();
-});
+app.register(fastifyCors);
 
 app.register(fastifyAutoload, {
     dir: join(__dirname, "routes")
