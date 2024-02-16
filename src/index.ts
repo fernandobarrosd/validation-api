@@ -7,6 +7,7 @@ import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifyStatic from "@fastify/static";
 import { swaggerConfig } from "./swagger/config";
 import { swaggerUIConfig } from "./swagger/uiConfig";
+import fastifyCors from "@fastify/cors";
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 const app = fastify();
@@ -17,6 +18,7 @@ app.register(fastifyStatic, {
 
 app.register(fastifySwagger, swaggerConfig);
 app.register(fastifySwaggerUi, swaggerUIConfig);
+app.register(fastifyCors, {});
 
 app.register(fastifyAutoload, {
     dir: join(__dirname, "routes")
