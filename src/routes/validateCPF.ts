@@ -2,9 +2,49 @@ import { FastifyInstance } from "fastify";
 import z from "zod";
 
 export default async function(app: FastifyInstance) {
-    app.post("/cpf", (request, reply) => {
+    app.post("/cpf", {
+        schema: {
+            operationId: "validateCPF",
+            tags: ["Validation"],
+            summary: "Validate CPF pattern",
+            body: {
+                type: "object",
+                properties: {
+                    pattern: {
+                        type: "string"
+                    }
+                }
+            },
+            response: {
+                200: {
+                    description: "CPF pattern is valid",
+                    type: "object",
+                    properties: {
+                        message: {
+                            type: "string"
+                        },
+                        pattern: {
+                            type: "string"
+                        }
+                    }
+                },
+                400: {
+                    description: "Response error",
+                    type: "object",
+                    properties: {
+                        message: {
+                            type: "string"
+                        },
+                        statusCode: {
+                            type: "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }, (request, reply) => {
         const validateCPFBody = z.object({
-            cpf: z.string()
+            pattern: z.string()
         });
         const result = validateCPFBody.safeParse(request.body);
 
@@ -14,19 +54,18 @@ export default async function(app: FastifyInstance) {
                 statusCode: 400
             });
         }
-        const { data: { cpf } } = result;
+        const { data: { pattern } } = result;
 
-        const isCPF = /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$/.test(cpf);
+        const isCPF = /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$/.test(pattern);
 
         if (isCPF) {
             return reply.send({
                 message: "CPF pattern is valid",
-                cpf
+                pattern
             });
         }
         return reply.status(400).send({
             message: "CPF pattern is invalid",
-            cpf,
             statusCode: 400
         });
     });

@@ -2,9 +2,49 @@ import { FastifyInstance } from "fastify";
 import z from "zod";
 
 export default async function(app: FastifyInstance) {
-    app.post("/creditCard", (request, reply) => {
+    app.post("/creditCard", {
+        schema: {
+            operationId: "validateCreditCard",
+            tags: ["Validation"],
+            summary: "Validate Credit Card number pattern",
+            body: {
+                type: "object",
+                properties: {
+                    pattern: {
+                        type: "string"
+                    }
+                }
+            },
+            response: {
+                200: {
+                    description: "Credit Card number pattern is valid",
+                    type: "object",
+                    properties: {
+                        message: {
+                            type: "string"
+                        },
+                        pattern: {
+                            type: "string"
+                        }
+                    }
+                },
+                400: {
+                    description: "Response error",
+                    type: "object",
+                    properties: {
+                        message: {
+                            type: "string"
+                        },
+                        statusCode: {
+                            type: "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }, (request, reply) => {
         const validateCPFBody = z.object({
-            creditCard: z.string()
+            pattern: z.string()
         });
         const result = validateCPFBody.safeParse(request.body);
 
@@ -14,19 +54,18 @@ export default async function(app: FastifyInstance) {
                 statusCode: 400
             });
         }
-        const { data: { creditCard } } = result;
+        const { data: { pattern } } = result;
 
-        const isCreditCard = /^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$/.test(creditCard);
+        const isCreditCard = /^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$/.test(pattern);
 
         if (isCreditCard) {
             return reply.send({
                 message: "Credit card pattern is valid",
-                creditCard
+                pattern
             });
         }
         return reply.status(400).send({
             message: "Credit card pattern is invalid",
-            creditCard,
             statusCode: 400
         });
     });
